@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ចុះឈ្មោះសមាជិកថ្មី</title>
+    <style>
+        body { font-family: 'Khmer OS Battambang', sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: white; width: 90%; max-width: 400px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 20px; overflow: hidden; }
+        .step { display: none; }
+        .step.active { display: block; }
+        
+        /* រចនាប័ទ្មតាមរូបភាព 01.png */
+        .option { display: flex; align-items: center; justify-content: space-between; border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; }
+        
+        /* រចនាប័ទ្មតាមរូបភាព 02.png */
+        input[type="text"] { width: 100%; padding: 12px; border: none; border-bottom: 2px solid #ddd; margin: 15px 0; font-size: 16px; box-sizing: border-box; }
+        
+        .btn { width: 100%; background-color: #3b82f6; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .success-ui { text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="step1" class="step active">
+        <h3>💸 សួស្តីបងៗចង់លេងសប្បាយហ្គេមមួយណា?</h3>
+        <label class="option"><input type="radio" name="game" value="បាល់ទាត់"> 🎯 បាល់ទាត់</label>
+        <label class="option"><input type="radio" name="game" value="កាស៊ីណូ">♦️ កាស៊ីណូផ្ទាល់</label>
+        <label class="option"><input type="radio" name="game" value="ហ្គេមស្លត"> 🎰 ហ្គេមស្លត</label>
+        <label class="option"><input type="radio" name="game" value="បាញ់ត្រី"> 🐟 បាញ់ត្រី</label>
+        <button class="btn" onclick="nextStep(2)">បន្ត (Continue)</button>
+    </div>
+
+    <div id="step2" class="step">
+        <h3>Contact information ⓘ</h3>
+        <p style="font-size: 13px; color: #666;">បងចង់បើកអាខោនលេង សុំឈ្មោះ និងលេខតេឡេក្រាមម្នាក់មួយមកបង ☎️</p>
+        <label style="color: #888; font-size: 14px;">Full name</label>
+        <input type="text" id="fullname" placeholder="Enter your answer.">
+        <label style="color: #888; font-size: 14px;">Phone number</label>
+        <input type="text" id="phone" placeholder="Enter your answer.">
+        <button class="btn" onclick="sendData()">Continue</button>
+    </div>
+
+    <div id="step3" class="step success-ui">
+        <div style="background: #fbbf24; border-radius: 50%; width: 60px; height: 60px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white; font-size: 30px;">🦁</span>
+        </div>
+        <h4>Lion888 Cambodia</h4>
+        <h3 style="color: #1d4ed8;">រួចរាល់ហើយ! សូមអរគុណ</h3>
+        <p>ចាំតិចបង ក្រុមការងារនឹងបង្កើត Account រួចផ្ញើព័ត៌មានចូល Telegram បង 😘</p>
+        <a href="https://t.me/your_admin" class="btn" style="text-decoration: none; display: block;">View in Messenger/Telegram</a>
+    </div>
+</div>
+
+<script>
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + step).classList.add('active');
+    }
+
+    function sendData() {
+        const game = document.querySelector('input[name="game"]:checked')?.value || "មិនបានជ្រើសរើស";
+        const name = document.getElementById('fullname').value;
+        const phone = document.getElementById('phone').value;
+
+        if(!name || !phone) return alert("សូមបំពេញព័ត៌មាន!");
+
+        const token = "ដាក់_TOKEN_BOT_ត្រង់នេះ";
+        const chatId = "ដាក់_CHAT_ID_ត្រង់នេះ";
+        const text = `🔔 *មានអតិថិជនថ្មី!*\n🎮 ហ្គេម: ${game}\n👤 ឈ្មោះ: ${name}\n📞 លេខ: ${phone}`;
+
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}&parse_mode=Markdown`)
+        .then(() => nextStep(3));
+    }
+</script>
+
+</body>
+</html>
