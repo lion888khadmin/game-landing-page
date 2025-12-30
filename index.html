@@ -3,75 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ចុះឈ្មោះសមាជិកថ្មី</title>
+    <title>Lion888 - ចុះឈ្មោះសមាជិកថ្មី</title>
     <style>
-        body { font-family: 'Khmer OS Battambang', sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { background: white; width: 90%; max-width: 400px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 20px; overflow: hidden; }
+        /* --- កំណត់ពណ៌ និង Font --- */
+        :root {
+            --primary-gold: #fbbf24;
+            --dark-gold: #d97706;
+            --black-bg: #111827;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Khmer OS Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0f172a; /* ពណ៌ផ្ទៃក្រោយងងឹតបែបប្រណីត */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+        }
+
+        /* --- Container --- */
+        .container {
+            background: var(--white);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            box-sizing: border-box;
+            border-top: 8px solid var(--primary-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
         .step { display: none; }
-        .step.active { display: block; }
-        
-        /* រចនាប័ទ្មតាមរូបភាព 01.png */
-        .option { display: flex; align-items: center; justify-content: space-between; border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; }
-        
-        /* រចនាប័ទ្មតាមរូបភាព 02.png */
-        input[type="text"] { width: 100%; padding: 12px; border: none; border-bottom: 2px solid #ddd; margin: 15px 0; font-size: 16px; box-sizing: border-box; }
-        
-        .btn { width: 100%; background-color: #3b82f6; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .success-ui { text-align: center; }
+        .step.active { 
+            display: block; 
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ចំណងជើង --- */
+        h3 { 
+            font-size: 19px; 
+            margin-bottom: 20px; 
+            color: #1f2937; 
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* --- ការរចនា Option ជ្រើសរើសហ្គេម --- */
+        .option-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid var(--light-gray);
+            padding: 14px 18px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-gold);
+            background-color: #fffbeb;
+            transform: scale(1.02);
+        }
+
+        .option-card input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--dark-gold);
+        }
+
+        .option-label { font-weight: 600; color: #374151; font-size: 16px; }
+
+        /* --- ការរចនា Input --- */
+        .input-group { margin-bottom: 18px; }
+        .input-group label { 
+            display: block; 
+            color: #6b7280; 
+            font-size: 13px; 
+            margin-bottom: 5px; 
+            margin-left: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-gold);
+            background-color: #fffdf7;
+        }
+
+        /* --- ការរចនាប៊ូតុង និង Animation --- */
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0px #b45309; /* ប៊ូតុង 3D */
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px #b45309;
+        }
+
+        .btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0px #b45309;
+        }
+
+        .btn:disabled {
+            background: #d1d5db;
+            box-shadow: 0 4px 0px #9ca3af;
+            cursor: not-allowed;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* --- ទំព័រជោគជ័យ --- */
+        .success-content { text-align: center; }
+        .logo-circle {
+            width: 85px; height: 85px; background: #000; border-radius: 50%;
+            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+            border: 4px solid var(--primary-gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .logo-circle img { width: 60px; border-radius: 50%; }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            color: #6b7280;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .back-link:hover { color: var(--dark-gold); }
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="step1" class="step active">
-        <h3>💸 សួស្តីបងៗចង់លេងសប្បាយហ្គេមមួយណា?</h3>
-        <label class="option"><input type="radio" name="game" value="បាល់ទាត់"> 🎯 បាល់ទាត់</label>
-        <label class="option"><input type="radio" name="game" value="កាស៊ីណូ">♦️ កាស៊ីណូផ្ទាល់</label>
-        <label class="option"><input type="radio" name="game" value="ហ្គេមស្លត"> 🎰 ហ្គេមស្លត</label>
-        <label class="option"><input type="radio" name="game" value="បាញ់ត្រី"> 🐟 បាញ់ត្រី</label>
-        <button class="btn" onclick="nextStep(2)">បន្ត (Continue)</button>
+        <h3>🦁 សួស្តីបង! តើបងចង់លេងសប្បាយជាមួយហ្គេមមួយណា?</h3>
+        <label class="option-card">
+            <span class="option-label"⚽️ បាល់ទាត់ (Sports)</span>
+            <input type="radio" name="game" value="បាល់ទាត់">
+        </label>
+        <label class="option-card">
+            <span class="option-label">🃏 កាស៊ីណូ (Live Casino)</span>
+            <input type="radio" name="game" value="កាស៊ីណូ">
+        </label>
+        <label class="option-card">
+            <span class="option-label">🎰 ហ្គេមស្លត (Slot Game)</span>
+            <input type="radio" name="game" value="ហ្គេមស្លត">
+        </label>
+        <label class="option-card">
+            <span class="option-label">🐟 បាញ់ត្រី (Fishing)</span>
+            <input type="radio" name="game" value="បាញ់ត្រី">
+        </label>
+        </label>
+        <label class="option-card">
+            <span class="option-label">🧮ឡូតូ (Lottery)</span>
+            <input type="radio" name="game" value="ឡូតូ">
+        </label>
+
+        <button class="btn" onclick="nextStep(2)">បន្តទៅមុខទៀត</button>
     </div>
 
     <div id="step2" class="step">
-        <h3>Contact information ⓘ</h3>
-        <p style="font-size: 13px; color: #666;">បងចង់បើកអាខោនលេង សុំឈ្មោះ និងលេខតេឡេក្រាមម្នាក់មួយមកបង ☎️</p>
-        <label style="color: #888; font-size: 14px;">Full name</label>
-        <input type="text" id="fullname" placeholder="Enter your answer.">
-        <label style="color: #888; font-size: 14px;">Phone number</label>
-        <input type="text" id="phone" placeholder="Enter your answer.">
-        <button class="btn" onclick="sendData()">Continue</button>
+        <h3 style="text-align: left;">☎️ ព័ត៌មានទំនាក់ទំនង</h3>
+        <p style="color: #6b7280; font-size: 14px; margin-top: -15px; margin-bottom: 20px;">ក្រុមការងារនឹងផ្ញើអាខោនជូនបងតាមតេឡេក្រាម</p>
+        
+        <div class="input-group">
+            <label>ឈ្មោះពេញ (Name)</label>
+            <input type="text" id="fullname" placeholder="ឧទាហរណ៍៖ សុខ ជា">
+        </div>
+
+        <div class="input-group">
+            <label>លេខតេឡេក្រាម (Telegram Number)</label>
+            <input type="text" id="phone" placeholder="ឧទាហរណ៍៖ 012345678">
+        </div>
+
+        <div class="input-group">
+            <label>ឈ្មោះ Facebook (បើមាន)</label>
+            <input type="text" id="fb_link" placeholder="ឈ្មោះក្នុង Facebook បង">
+        </div>
+
+        <button class="btn" id="submitBtn" onclick="sendToMake()">ចុះឈ្មោះឥឡូវនេះ</button>
+        <span class="back-link" onclick="nextStep(1)">⬅️ ត្រឡប់ក្រោយ</span>
     </div>
 
-    <div id="step3" class="step success-ui">
-        <div style="background: #fbbf24; border-radius: 50%; width: 60px; height: 60px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
-            <span style="color: white; font-size: 30px;">🦁</span>
+    <div id="step3" class="step success-content">
+        <div class="logo-circle">
+            <img src="https://i.postimg.cc/fykZByFX/555442345-122103205299035917-5348666257915376706-n.jpg" alt="Lion Logo">
         </div>
-        <h4>Lion888 Cambodia</h4>
-        <h3 style="color: #1d4ed8;">រួចរាល់ហើយ! សូមអរគុណ</h3>
-        <p>ចាំតិចបង ក្រុមការងារនឹងបង្កើត Account រួចផ្ញើព័ត៌មានចូល Telegram បង 😘</p>
-        <a href="https://t.me/your_admin" class="btn" style="text-decoration: none; display: block;">View in Messenger/Telegram</a>
+        <h2 style="color: var(--dark-gold); margin: 0;">ចុះឈ្មោះជោគជ័យ!</h2>
+        <p style="color: #4b5563; font-size: 15px; margin: 15px 0 25px; line-height: 1.6;">
+            អរគុណបងសម្រាប់ការចុះឈ្មោះ! <br> ក្រុមការងារកំពុងរៀបចំអាខោនជូនបង 😘
+        </p>
+        <button class="btn" onclick="window.location.href='https://lion888kh.com/'">ចូលទៅកាន់វេបសាយ</button>
     </div>
 </div>
 
 <script>
-    function nextStep(step) {
+    // មុខងារប្តូរ Step
+    function nextStep(n) {
+        if(n === 2) {
+            const game = document.querySelector('input[name="game"]:checked');
+            if(!game) { 
+                alert("សូមជ្រើសរើសប្រភេទហ្គេមដែលបងចូលចិត្ត!"); 
+                return; 
+            }
+        }
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + step).classList.add('active');
+        document.getElementById('step' + n).classList.add('active');
     }
 
-    function sendData() {
-        const game = document.querySelector('input[name="game"]:checked')?.value || "មិនបានជ្រើសរើស";
-        const name = document.getElementById('fullname').value;
-        const phone = document.getElementById('phone').value;
+    // មុខងារផ្ញើទិន្នន័យ
+    async function sendToMake() {
+        const WEBHOOK_URL = "https://hook.us2.make.com/6avwrhn3e2qbtmvh7j88ud0g2947wq2w";
 
-        if(!name || !phone) return alert("សូមបំពេញព័ត៌មាន!");
+        const game = document.querySelector('input[name="game"]:checked').value;
+        const name = document.getElementById('fullname').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const fb = document.getElementById('fb_link').value.trim();
 
-        const token = "ដាក់_TOKEN_BOT_ត្រង់នេះ";
-        const chatId = "ដាក់_CHAT_ID_ត្រង់នេះ";
-        const text = `🔔 *មានអតិថិជនថ្មី!*\n🎮 ហ្គេម: ${game}\n👤 ឈ្មោះ: ${name}\n📞 លេខ: ${phone}`;
+        // លក្ខខណ្ឌត្រួតពិនិត្យ
+        if(name.length < 2 || phone.length < 8) {
+            alert("សូមបំពេញឈ្មោះ និងលេខទូរស័ព្ទឱ្យបានត្រឹមត្រូវ!");
+            return;
+        }
 
-        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}&parse_mode=Markdown`)
-        .then(() => nextStep(3));
+        const btn = document.getElementById('submitBtn');
+        const originalText = btn.innerText;
+        btn.innerText = "កំពុងផ្ញើទិន្នន័យ...";
+        btn.disabled = true;
+
+        const data = {
+            game: game,
+            name: name,
+            phone: phone,
+            facebook: fb || "មិនបានដាក់",
+            submitted_at: new Date().toLocaleString('km-KH')
+        };
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if(response.ok) {
+                nextStep(3);
+            } else {
+                throw new Error();
+            }
+        } catch (error) {
+            alert("មានបញ្ហាបច្ចេកទេស! សូមព្យាយាមម្តងទៀត ឬពិនិត្យ Internet។");
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
     }
 </script>
 
